@@ -1,0 +1,24 @@
+# Database
+DB_HOST=localhost
+DB_PORT=1433
+DB_USER=sa
+DB_PASSWORD=Senha@123
+DB_NAME=microservices
+
+# RabbitMQ
+RABBITMQ_HOST=localhost
+RABBITMQ_PORT=5672
+RABBITMQ_USER=guest
+RABBITMQ_PASSWORD=Senha@123
+RABBITMQ_VHOST=/
+
+# JWT
+JWT_SECRET=change-me-in-production-use-32-chars-minimum
+JWT_EXPIRATION_HOURS=24
+
+# Service URLs (api-gateway)
+USER_SERVICE_URL=http://localhost:8081
+ORDER_SERVICE_URL=http://localhost:8082
+
+# Logging
+LOG_LEVEL=info

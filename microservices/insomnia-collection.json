@@ -1,0 +1,190 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2026-04-23",
+  "__export_source": "insomnia",
+  "resources": [
+    {
+      "_id": "env_microservices",
+      "_type": "environment",
+      "name": "Microservices - Local",
+      "data": {
+        "base_url": "http://localhost:8080",
+        "token": ""
+      }
+    },
+    {
+      "_id": "wrk_microservices",
+      "_type": "workspace",
+      "name": "Microservices API",
+      "description": "Coleção para testar a API de microserviços"
+    },
+    {
+      "_id": "fld_auth",
+      "_type": "request_group",
+      "name": "Auth",
+      "parentId": "wrk_microservices"
+    },
+    {
+      "_id": "fld_users",
+      "_type": "request_group",
+      "name": "Users",
+      "parentId": "wrk_microservices"
+    },
+    {
+      "_id": "fld_orders",
+      "_type": "request_group",
+      "name": "Orders",
+      "parentId": "wrk_microservices"
+    },
+    {
+      "_id": "req_health",
+      "_type": "request",
+      "name": "Health Check",
+      "parentId": "wrk_microservices",
+      "method": "GET",
+      "url": "{{ _.base_url }}/health",
+      "headers": [],
+      "body": {}
+    },
+    {
+      "_id": "req_register",
+      "_type": "request",
+      "name": "Criar Usuário",
+      "parentId": "fld_auth",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/v1/users",
+      "headers": [
+        { "name": "Content-Type", "value": "application/json" }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"João Silva\",\n  \"email\": \"joao@email.com\",\n  \"password\": \"Senha@123\",\n  \"role\": \"customer\"\n}"
+      }
+    },
+    {
+      "_id": "req_login",
+      "_type": "request",
+      "name": "Login",
+      "parentId": "fld_auth",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/v1/auth/login",
+      "headers": [
+        { "name": "Content-Type", "value": "application/json" }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"email\": \"joao@email.com\",\n  \"password\": \"Senha@123\"\n}"
+      }
+    },
+    {
+      "_id": "req_list_users",
+      "_type": "request",
+      "name": "Listar Usuários",
+      "parentId": "fld_users",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/v1/users?limit=20&offset=0",
+      "headers": [
+        { "name": "Authorization", "value": "Bearer {{ _.token }}" }
+      ],
+      "body": {}
+    },
+    {
+      "_id": "req_get_user",
+      "_type": "request",
+      "name": "Buscar Usuário por ID",
+      "parentId": "fld_users",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/v1/users/SEU_USER_ID_AQUI",
+      "headers": [
+        { "name": "Authorization", "value": "Bearer {{ _.token }}" }
+      ],
+      "body": {}
+    },
+    {
+      "_id": "req_update_user",
+      "_type": "request",
+      "name": "Atualizar Usuário",
+      "parentId": "fld_users",
+      "method": "PUT",
+      "url": "{{ _.base_url }}/api/v1/users/SEU_USER_ID_AQUI",
+      "headers": [
+        { "name": "Content-Type", "value": "application/json" },
+        { "name": "Authorization", "value": "Bearer {{ _.token }}" }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"João Silva Atualizado\"\n}"
+      }
+    },
+    {
+      "_id": "req_delete_user",
+      "_type": "request",
+      "name": "Deletar Usuário",
+      "parentId": "fld_users",
+      "method": "DELETE",
+      "url": "{{ _.base_url }}/api/v1/users/SEU_USER_ID_AQUI",
+      "headers": [
+        { "name": "Authorization", "value": "Bearer {{ _.token }}" }
+      ],
+      "body": {}
+    },
+    {
+      "_id": "req_create_order",
+      "_type": "request",
+      "name": "Criar Pedido",
+      "parentId": "fld_orders",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/v1/orders",
+      "headers": [
+        { "name": "Content-Type", "value": "application/json" },
+        { "name": "Authorization", "value": "Bearer {{ _.token }}" }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"user_id\": \"SEU_USER_ID_AQUI\",\n  \"items\": [\n    {\n      \"product_id\": \"prod-001\",\n      \"product_name\": \"Notebook Dell\",\n      \"quantity\": 1,\n      \"unit_price\": 3500.00\n    },\n    {\n      \"product_id\": \"prod-002\",\n      \"product_name\": \"Mouse Logitech\",\n      \"quantity\": 2,\n      \"unit_price\": 150.00\n    }\n  ],\n  \"notes\": \"Entregar pela manhã\"\n}"
+      }
+    },
+    {
+      "_id": "req_get_order",
+      "_type": "request",
+      "name": "Buscar Pedido por ID",
+      "parentId": "fld_orders",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/v1/orders/SEU_ORDER_ID_AQUI",
+      "headers": [
+        { "name": "Authorization", "value": "Bearer {{ _.token }}" }
+      ],
+      "body": {}
+    },
+    {
+      "_id": "req_list_orders",
+      "_type": "request",
+      "name": "Listar Pedidos do Usuário",
+      "parentId": "fld_orders",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/v1/users/SEU_USER_ID_AQUI/orders?limit=20&offset=0",
+      "headers": [
+        { "name": "Authorization", "value": "Bearer {{ _.token }}" }
+      ],
+      "body": {}
+    },
+    {
+      "_id": "req_update_order_status",
+      "_type": "request",
+      "name": "Atualizar Status do Pedido",
+      "parentId": "fld_orders",
+      "method": "PATCH",
+      "url": "{{ _.base_url }}/api/v1/orders/SEU_ORDER_ID_AQUI/status",
+      "headers": [
+        { "name": "Content-Type", "value": "application/json" },
+        { "name": "Authorization", "value": "Bearer {{ _.token }}" }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"status\": \"confirmed\"\n}"
+      },
+      "description": "Status válidos em ordem: pending → confirmed → processing → shipped → delivered\nCancelamento: pending/confirmed/processing → cancelled"
+    }
+  ]
+}
